@@ -76,7 +76,7 @@ class  Trans extends Component {
               <List.Item style={styles.list}
                 titleStyle={{color: item.type == 0 ? 'green' :  item.type == 1 ? 'red' : 'blue'}}
                 title={item.name + '  ' + item.nominal}
-                  description={item.type == 0 ? item.date + ' income' +   "\n" + item.note  :  item.type == 1 ? item.date + ' expense' +   "\n" + item.note  : item.date + ' transfer' +   "\n" + item.note}
+                  description={item.type == 0 ? item.date + ' Pendapatan ' +   "\n" + item.note  :  item.type == 1 ? item.date + ' Pengeluaran' +   "\n" + item.note  : item.date + ' Transfer' +   "\n" + item.note}
                   left={props => <List.Icon {...props} icon={item.type == 0 ? 'cash-plus' :  item.type == 1 ? 'cash-minus' : 'cash-refund'} />}/>
             </TouchableOpacity>
           )}/>
@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   list:{
-    backgroundColor: 'blue'
+    backgroundColor: 'white',
+    height: 65,
   }
 });
 
