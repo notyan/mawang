@@ -72,25 +72,60 @@ class AddTrans extends Component{
             {label:'Pilih Menu', value:'except'}
         ]
         return (
-            <View>
-                <ButtonGroup onPress={this.updateIndex} selectedIndex={type} buttons={buttons} containerStyle={{height: 40}}/>
-                <TextInput  placeholder="Nama transaksi" onChangeText={value => this.setState({ name: value })}/>
-                <TextInput  placeholder="Nominal" keyboardType="numeric" onChangeText={value => this.setState({ nominal: value })}/>
-                <TextInput  placeholder="Notes" multilne  onChangeText={value => this.setState({ note: value })}/>
-                <DropDownPicker items={kategori} defaultValue={this.state.category} containerStyle={{height: 40}} style={{backgroundColor: '#fafafa'}} itemStyle={{justifyContent: 'flex-start'}}  onChangeItem={item => this.setState({category: item.value})}/>
-                <Button title="Submit" onPress={()=>{
+           <View style={[styles.container, {
+      // Try setting `flexDirection` to `"row"`.
+      flexDirection: "column"
+    }]}>
+                <ButtonGroup style={styles.box} onPress={this.updateIndex} selectedIndex={type} buttons={buttons} containerStyle={{height: 40,alignSelf: 'stretch'}}/>
+               <View style={styles.box}>
+                <TextInput style={styles.input} placeholder="Nama transaksi" onChangeText={value => this.setState({ name: value })}/>
+                <TextInput style={styles.input}  placeholder="Nominal" keyboardType="numeric" onChangeText={value => this.setState({ nominal: value })}/>
+                <TextInput style={styles.input} column={5} placeholder="Notes" multilne  onChangeText={value => this.setState({ note: value })}/>
+                <DropDownPicker items={kategori} defaultValue={this.state.category} containerStyle={{height: 50}} style={{backgroundColor: '#fafafa',marginBottom:5}} itemStyle={{justifyContent: 'flex-start'}}  onChangeItem={item => this.setState({category: item.value})}/>
+                <Button style={{marginTop:120,marginBottom:5}} title="Submit" onPress={()=>{
                     this.addReview(this.state)
                     //console.log(this.state.data)
                     this.props.closeModal({modal: false})
                     this.props.fetchData()
                     
                 }}/>
-            </View>
-            
+                </View>
+            </View> 
         )
       }
 
    
 }
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    flexDirection:"column"
+  },
+  tombol:{
+    backgroundColor: '#12ff',
+    justifyContent: 'center'
+  },
+  input:{
+    borderWidth: 1,
+    paddingVertical:5,
+    paddingHorizontal:5,
+    alignSelf: 'stretch',
+    marginBottom:5,
+    borderRadius:6,
+    borderColor: '#4444',
+  },
+box:{
+ marginTop:50,
+  borderWidth: 1,
+  padding: 15,
+  borderRadius:10,
+  borderColor: 'powderblue',
+  justifyContent: 'center',
+
+
+}
+});
 
 export default AddTrans
