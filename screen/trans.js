@@ -73,7 +73,7 @@ class  Trans extends Component {
           {/*ADD TRANSACTION*/}
           <FlatList data={this.state.data} renderItem={({item}) =>(
             <TouchableOpacity onPress={() => console.log('item')}>
-              <List.Item 
+              <List.Item style={styles.list}
                 titleStyle={{color: item.type == 0 ? 'green' :  item.type == 1 ? 'red' : 'blue'}}
                 title={item.name + '  ' + item.nominal}
                   description={item.type == 0 ? item.date + ' income' +   "\n" + item.note  :  item.type == 1 ? item.date + ' expense' +   "\n" + item.note  : item.date + ' transfer' +   "\n" + item.note}
@@ -98,7 +98,7 @@ class  Trans extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#4a304d'
+    backgroundColor: 'white',
   },
   fab: {
     position: 'absolute',
@@ -106,6 +106,9 @@ const styles = StyleSheet.create({
   },
   titleItem: {
     color: 'white',
+  },
+  list:{
+    backgroundColor: 'blue'
   }
 });
 

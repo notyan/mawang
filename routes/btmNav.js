@@ -48,7 +48,7 @@ export default function btmNav() {
               inactiveTintColor: 'gray',
             }}
         >
-        <Tab.Screen  name="Transaksi" component={Trans}/>
+        <Tab.Screen name="Transaksi" component={Trans}/>
         <Tab.Screen name="Stats" component={Stat} />
         <Tab.Screen name="Summary" component={Sum} />
         <Tab.Screen name="Planning" component={Set} />

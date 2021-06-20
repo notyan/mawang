@@ -1,12 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { StyleSheet, Text, FlatList, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, FlatList, View, Dimensions, ScrollView } from 'react-native';
 import {  PieChart,  } from "react-native-chart-kit";
-import { List } from 'react-native-paper';
-import { ButtonGroup } from "react-native-elements"
+import { DataTable } from 'react-native-paper';
 import * as SQLite from 'expo-sqlite';
 import Kepala from '../shared/kepala'
 const db = SQLite.openDatabase('db.db')
+var deskripsi = [
+  {key: 'Makanan', value:0},
+  {key: 'Groceries', value:0},
+  {key: 'Daily Goods', value:0},
+  {key: 'Tagihan', value:0},
+  {key: 'Shopping', value:0},
+  {key: 'Cicilan', value:0},
+  {key: 'Laundry', value:0},
+  {key: 'Liburan', value:0},
+  {key: 'Amal', value:0},
+]
 
 class Sum extends Component {
   _isMounted = false;
@@ -19,8 +29,9 @@ class Sum extends Component {
       transType:[],
       transCat:[],
       expenseTotal: [0,0,0,0,0,0,0,0,0],
-      deskripsi:{},
+      
     }
+    
     this.componentDidMount()
     this.fetchData()
   }
@@ -83,11 +94,12 @@ class Sum extends Component {
             percent[i] = Math.round((percent[i]*100)/(expense-other))
             this.setState({ expenseTotal: percent})
           }
-          let kategori = ['Makanan', 'Groceries', "Daily Goods", "Tagihan", "Shopping", "Cicilan", "Laundry", "Liburan", "Amal"]
           let jumlah = [...transTemp];
-          let result = Object.assign(...kategori.map((k,i)=> ({[k]:jumlah[i]})))
-
-          this.setState({ deskripsi: result})
+          for(var i in jumlah){
+            this.setState({ expenseTotal: percent})
+            deskripsi[i].value = jumlah[i]
+            console.log('hehe')
+          }
         }
         else{
           console.log('data kosong')
@@ -103,65 +115,72 @@ class Sum extends Component {
   }
   
 
-render(){
-  
-  console.log(this.state.deskripsi)
-  const lebar = Dimensions.get('window').width-40;
-  const data = [
-    { name: "% Makanan",    nominal:  Number(this.state.expenseTotal[0]), color: "#69253f",
-      legendFontColor: "#7F7F7F", legendFontSize: 12
-    },
-    { name: "% Groceries",  nominal: Number(this.state.expenseTotal[1]), color: "#893245",
-      legendFontColor: "#7F7F7F",legendFontSize: 12
-    },
-    { name: "% Daily Goods",  nominal: Number(this.state.expenseTotal[2]), color: "#ba4b51",
-      legendFontColor: "#7F7F7F", legendFontSize: 12
-    },
-    { name: "% Tagihan",  nominal: Number(this.state.expenseTotal[3]), color: "#fe7460",
-      legendFontColor: "#7F7F7F", legendFontSize: 12
-    },
-    { name: "% Shopping",  nominal: Number(this.state.expenseTotal[4]), color: "#ffaf6e",
-      legendFontColor: "#7F7F7F", legendFontSize: 12
-    },
-    { name: "% Cicilan",  nominal: Number(this.state.expenseTotal[5]), color: "#f29180",
-      legendFontColor: "#7F7F7F", legendFontSize: 12
-    },
-    { name: "% Laundry",  nominal: Number(this.state.expenseTotal[6]), color: "#ef6678",
-      legendFontColor: "#7F7F7F", legendFontSize: 12
-    },
-    { name: "% Liburan",  nominal: Number(this.state.expenseTotal[7]), color: "#ae4264",
-      legendFontColor: "#7F7F7F", legendFontSize: 12
-    },
-    { name: "% Amal",  nominal: Number(this.state.expenseTotal[8]), color: "#7d2c4d",
-      legendFontColor: "#7F7F7F", legendFontSize: 12
-    },
-  ];
-    const chartConfig = {
-      backgroundColor: '#1cc910',
-      backgroundGradientFromOpacity: 0,
-      backgroundGradientFrom: '#eff3ff',
-      backgroundGradientTo: '#efefef',
-      decimalPlaces: 2,
-      color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-      style: {
-        borderRadius: 16,
+  render(){
+    const lebar = Dimensions.get('window').width-40;
+    const data = [
+      { name: "% Makanan",    nominal:  Number(this.state.expenseTotal[0]), color: "#69253f",
+        legendFontColor: "#7F7F7F", legendFontSize: 12
       },
-    };
-  return (
-    <View style={styles.container}>
-      <Kepala/>
-      <View style={global.container}>
-        <Text>Account Summary</Text>
-        <View style={styles.box}> 
-            <PieChart  data={data} width={lebar} height={200}  chartConfig={chartConfig} accessor="nominal"  paddingLeft="10"  absolute/>
-            <Text>{this.state.expenseTotal[0]}</Text>
-            
+      { name: "% Groceries",  nominal: Number(this.state.expenseTotal[1]), color: "#893245",
+        legendFontColor: "#7F7F7F",legendFontSize: 12
+      },
+      { name: "% Daily Goods",  nominal: Number(this.state.expenseTotal[2]), color: "#ba4b51",
+        legendFontColor: "#7F7F7F", legendFontSize: 12
+      },
+      { name: "% Tagihan",  nominal: Number(this.state.expenseTotal[3]), color: "#fe7460",
+        legendFontColor: "#7F7F7F", legendFontSize: 12
+      },
+      { name: "% Shopping",  nominal: Number(this.state.expenseTotal[4]), color: "#ffaf6e",
+        legendFontColor: "#7F7F7F", legendFontSize: 12
+      },
+      { name: "% Cicilan",  nominal: Number(this.state.expenseTotal[5]), color: "#f29180",
+        legendFontColor: "#7F7F7F", legendFontSize: 12
+      },
+      { name: "% Laundry",  nominal: Number(this.state.expenseTotal[6]), color: "#ef6678",
+        legendFontColor: "#7F7F7F", legendFontSize: 12
+      },
+      { name: "% Liburan",  nominal: Number(this.state.expenseTotal[7]), color: "#ae4264",
+        legendFontColor: "#7F7F7F", legendFontSize: 12
+      },
+      { name: "% Amal",  nominal: Number(this.state.expenseTotal[8]), color: "#7d2c4d",
+        legendFontColor: "#7F7F7F", legendFontSize: 12
+      },
+    ];
+      const chartConfig = {
+        backgroundColor: '#1cc910',
+        backgroundGradientFromOpacity: 0,
+        backgroundGradientFrom: '#eff3ff',
+        backgroundGradientTo: '#efefef',
+        decimalPlaces: 2,
+        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+        style: {
+          borderRadius: 16,
+        },
+      };
+    return (
+      <View style={styles.container}>
+        <Kepala/>
+        <View style={global.container}>
+          <View style={styles.box}> 
+              <PieChart  data={data} width={lebar} height={200}  chartConfig={chartConfig} accessor="nominal"  paddingLeft="10"  absolute/>
+          </View>
+          <View style={styles.box}> 
+              <DataTable style={styles.tabel}>
+                  <ScrollView>
+                    <FlatList data={deskripsi}  renderItem={({item}) =>(
+                        <DataTable.Row style={styles.row}>
+                          <DataTable.Cell style={styles.cell}>{item.key}</DataTable.Cell>
+                          <DataTable.Cell style={styles.cell} numeric>{item.value} Rupiah</DataTable.Cell>
+                        </DataTable.Row>
+                    )}/>
+                  </ScrollView>
+                </DataTable>
+          </View>
         </View>
       </View>
-    </View>
-  );
-}
-  
+    );
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -175,7 +194,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   box:{
-    paddingVertical: 10,
+    paddingVertical: 3,
+  },
+  row:{
+    height: 30,
+    borderBottomWidth: 0,
+    paddingVertical:0,
+  },
+  cell:{
+    fontSize: 2,
+    paddingVertical:0,
   }
 });
 export default Sum
