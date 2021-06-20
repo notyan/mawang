@@ -8,6 +8,7 @@ import * as SQLite from 'expo-sqlite';
 import Kepala from '../shared/kepala'
 import { global } from '../styles/global'
 import AddModal from  './addModal'
+import { TouchableHighlightBase } from 'react-native';
 
 
 const db = SQLite.openDatabase('db.db')
@@ -22,46 +23,48 @@ class  Trans extends Component {
       }
     this.closeModal()
     this.fetchData()
+    this.componentDidMount()
   }
 
   closeModal = () => {
-    this.setState({modal: false})
+    this.componentDidMount()
+    //this.setState({modal: false})
   }
 
-  async componentDidMount(){
+  componentDidMount(){
     this._isMounted = true;
+    this.setState({modal: false})
     db.transaction(tx =>{
       tx.executeSql('CREATE TABLE if not exists trans (id text PRIMARY KEY not null,  type text,  nominal text, name text, note text, category text, date text)')
       //tx.executeSql('Drop TABLE trans ')
     })
-    await this.fetchData()
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
-    this.setState = (state,callback)=>{
-      return;
-  };
+    //this.fetchData()
+    var query = "SELECT * FROM trans";
+    var params = [];
+    if(this._isMounted){
+      db.transaction((tx) => {
+        tx.executeSql(query,params, (tx, results) => {
+          if(results.rows._array.length > 0){
+            this.setState({data:results.rows._array},console.log("Isi Data " + results.rows._array.length));
+          }
+          else{
+            console.log('data kosong')
+          }
+        }, (error) => {
+          console.log("Warning","Terjadi kesalahan disisi server." + error);
+        });
+      });
+    }
+    
+    
   }
 
   fetchData = () => {
-    var query = "SELECT * FROM trans";
-    var params = [];
-    db.transaction((tx) => {
-      tx.executeSql(query,params, (tx, results) => {
-        if(results.rows._array.length > 0){
-          console.log(results.rows._array.length)
-          this.setState({data:results.rows._array});
-        }
-        else{
-          console.log('data kosong')
-        }
-      }, (error) => {
-        console.log("Warning","Terjadi kesalahan disisi server." + error);
-      });
-    });
+    this.componentDidMount()
   }
   
   render(){
+    console.log(this.state.data)
     return (
       <View style={styles.container}>
         <Kepala/>
@@ -83,14 +86,19 @@ class  Trans extends Component {
       </View>
       
       
-      );
-    }
+    );
   }
+  componentWillUnmount() {
+    this.setState = (state,callback)=>{
+      return;
+    },this._isMounted = false;;
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#4a304d'
   },
   fab: {
     position: 'absolute',

@@ -18,14 +18,14 @@ class AddTrans extends Component{
             nominal: '',
             name: '',
             note: '',
-            category: 'satu',
+            category: 'except',
             date:'',
         }
         this.updateIndex = this.updateIndex.bind(this)
     }
       addReview(data){
         let today = new Date()
-        data.date = today.toLocaleString().slice(0,19)
+        data.date = today.toUTCString().slice(0,17)+today.getHours()+':'+today.getMinutes()
         data.id = today.toISOString().slice(0,19).replace(/[-:T]/g,'')
         //data.id = Math.random()
         console.log(data)
@@ -40,16 +40,36 @@ class AddTrans extends Component{
         })
       }
       updateIndex (type) {
-        this.setState({type})
+        this.setState({type}, ()=> {
+          if(this.state.type == 0.0){
+            this.setState({category: 'pendapatan'})
+          }
+          else if(this.state.type == 1.0){
+            this.setState({category: 'except'})
+          }
+          else if(this.state.type == 2.0){
+            this.setState({category: 'transfer'})
+          }
+        })
+        
       }
       
       render () {
         const buttons = ['Income', 'Expense', 'Transfer']
         const { type } = this.state
         const kategori = [
-            {label:'Makanan', value:'satu'},
-            {label:'Shopping', value:'dua'},
-            {label:'Tagihan', value:'tiga'},
+            {label:'Makanan', value:'makanan'},
+            {label:'Groceries', value:'groceries'},
+            {label:'Daily Goods', value:'goods'},
+            {label:'Tagihan', value:'tagihan'},
+            {label:'Shopping', value:'shopping'},
+            {label:'Utang', value:'utang'},
+            {label:'Laundry', value:'laundry'},
+            {label:'Liburan', value:'liburan'},
+            {label:'Amal', value:'amal'},
+            {label:'Pendapatan', value:'pendapatan'},
+            {label:'Transfer', value:'transfer'},
+            {label:'Pilih Menu', value:'except'}
         ]
         return (
             <View>

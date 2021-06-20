@@ -5,7 +5,7 @@ export default function Card(props){
     return(
         <View style={styles.card}>
             <View style={styles.cardcontent}>
-                {props.children}
+                <Text>{props.hehe}</Text>
             </View>
         </View>
     )

@@ -3,34 +3,90 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import {  BarChart, LineChart } from "react-native-chart-kit";
 import { Header, ButtonGroup } from "react-native-elements"
-
+import * as SQLite from 'expo-sqlite';
 import Kepala from '../shared/kepala'
+const db = SQLite.openDatabase('db.db')
 
 class Stat extends Component {
+  _isMounted = false;
   constructor(){
     super()
     this.state = {
-      data:[20,12,23,18],
-      time:2,
+      transaction: [],
+      transDate:[],
+      transNom:[],
+      transType:[],
+      stats:[0,0,0],
+      data:[],
+      time:1,
     }
+    this.fetchData()
+    this.componentDidMount()
     this.updateIndex = this.updateIndex.bind(this)
   }
-  
-  updateIndex (time) {
-    this.setState({time})
+  componentDidMount(){
+    this._isMounted = true;
   }
 
+  
+  fetchData = () => {
+    var query = "SELECT * FROM trans";
+    var params = [];
+    db.transaction((tx) => {
+      tx.executeSql(query,params, (tx, results) => {
+        if(results.rows._array.length > 0){
+          let transTemp = [0,0,0];
+          for (let i = 0; i< results.rows._array.length; i++){
+            
+            if(results.rows.item(i).type == 0.0){
+              transTemp[0] += parseInt(results.rows.item(i).nominal)
+              this.setState({
+                stats: transTemp
+              })
+            }else if(results.rows.item(i).type == 1.0){
+              transTemp[1] += parseInt(results.rows.item(i).nominal)
+              this.setState({
+                stats: transTemp
+              })
+            }else if(results.rows.item(i).type == 2.0){
+              transTemp[2] += parseInt(results.rows.item(i).nominal)
+              this.setState({
+                stats: transTemp
+              })
+            }
+            this.setState({
+              transDate: [...this.state.transDate, results.rows.item(i).date],
+              transNom: [...this.state.transNom, results.rows.item(i).nominal],
+              transType: [...this.state.transType, results.rows.item(i).type],
+            })
+          } 
+        }
+        else{
+          console.log('data kosong')
+        }
+      }, (error) => {
+        console.log("Warning","Terjadi kesalahan disisi server." + error);
+      });
+    });
+  }
+
+
+  updateIndex (time) {
+    this.setState({time})
+    console.log('Bulan Updated')
+  }
+
+
   render(){
-    const buttons = ['Last Month', 'This Month']
+    console.log(this.state.stats)
+    const buttons = ['Monthly', 'Daily']
     const { time } = this.state
     const lebar = Dimensions.get('window').width-40;
-    const tinggi = Dimensions.get('window').height;
     const data={
-      labels: ["W1", "W2", "W3", "W4"],
+      labels: ['Income', "Expense", "Transfer"],
       datasets: [{
-        data: this.state.data
+        data: this.state.stats
       }]
-      
     }
     const chartConfig = {
       backgroundGradientFrom: '#333652',
@@ -47,7 +103,7 @@ class Stat extends Component {
       <View style={styles.container}>
         <Kepala/>
         <View style={styles.content}>
-          <ButtonGroup onPress={this.updateIndex} selectedIndex={time} buttons={buttons} containerStyle={{height: 40}}/>
+          <ButtonGroup style={styles.tombol} onPress={this.updateIndex} selectedIndex={time} buttons={buttons} containerStyle={{height: 40}}/>
           <View style={styles.box}> 
             <BarChart fromZero={true} data={data} width={lebar} height={220}  yAxisLabel={'$'} chartConfig={chartConfig}/>
           </View>
@@ -59,7 +115,12 @@ class Stat extends Component {
       
     );
   }
-  
+  componentWillUnmount() {
+    this._isMounted = false;
+    this.setState = (state,callback)=>{
+      return;
+  };
+  }
 }
 
 const styles = StyleSheet.create({
@@ -75,6 +136,9 @@ const styles = StyleSheet.create({
   },
   box:{
     paddingVertical: 10,
+  },
+  tombol:{
+    backgroundColor: '#b17179'
   }
 });
 

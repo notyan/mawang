@@ -25,14 +25,13 @@ export default function btmNav() {
             screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
-
-                if (route.name === 'Stats') {
-                iconName = focused ? 'graph-trend' : 'graph-pie';
-                return <Foundation name={iconName} size={size} color={color} />;
-                }
                 if (route.name === 'Transaksi') {
-                    iconName = focused ? 'list-bullet' : 'list';
-                    return <Foundation name={iconName} size={size} color={color} />;
+                  iconName = focused ? 'list-bullet' : 'list';
+                  return <Foundation name={iconName} size={size} color={color} />;
+                }
+                if (route.name === 'Stats') {
+                  iconName = focused ? 'graph-trend' : 'graph-pie';
+                  return <Foundation name={iconName} size={size} color={color} />;
                 }
                 if (route.name === 'Summary') {
                     iconName = focused ? 'equal' : 'equal-box';
@@ -41,18 +40,16 @@ export default function btmNav() {
                 if (route.name === 'Planning') {
                     iconName = focused ? 'book-open-outline' : 'book-open';
                     return <MIcon name={iconName} size={size} color={color} />;
-                }
-
-                
+                } 
             },
             })}
             tabBarOptions={{
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
+              activeTintColor: 'tomato',
+              inactiveTintColor: 'gray',
             }}
         >
-        <Tab.Screen name="Stats" component={Stat} />
         <Tab.Screen  name="Transaksi" component={Trans}/>
+        <Tab.Screen name="Stats" component={Stat} />
         <Tab.Screen name="Summary" component={Sum} />
         <Tab.Screen name="Planning" component={Set} />
       </Tab.Navigator>
