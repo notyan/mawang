@@ -9,9 +9,11 @@ import Kepala from '../shared/kepala'
 import { global } from '../styles/global'
 import AddModal from  './addModal'
 import { TouchableHighlightBase } from 'react-native';
-
+import DelTrans from './delTrans';
 
 const db = SQLite.openDatabase('db.db')
+var identifier;
+
 
 class  Trans extends Component {
   _isMounted = false;
@@ -19,6 +21,7 @@ class  Trans extends Component {
     super()
     this.state = {
         modal: false,
+        overlay: false,
         data:[],
       }
     this.closeModal()
@@ -28,7 +31,17 @@ class  Trans extends Component {
 
   closeModal = () => {
     this.componentDidMount()
-    //this.setState({modal: false})
+    this.setState({modal: false})
+  }
+  closeOverlay = () =>{
+    this.setState({overlay: false})
+    this.componentDidMount()
+  }
+  openOverlay = (id) =>{
+    this.setState({overlay: true})
+    identifier = id
+    this.componentDidMount()
+    console.log(id)
   }
 
   componentDidMount(){
@@ -55,24 +68,24 @@ class  Trans extends Component {
         });
       });
     }
-    
-    
   }
 
   fetchData = () => {
     this.componentDidMount()
   }
+
   
   render(){
-    console.log(this.state.data)
     return (
       <View style={styles.container}>
         <Kepala/>
         <View style={global.container}>
           <AddModal modal={this.state.modal} fetchData={this.fetchData} closeModal={this.closeModal} />
+          
           {/*ADD TRANSACTION*/}
+          <DelTrans data={this.state.data} identifier={identifier} overlay={this.state.overlay} closeOverlay={this.closeOverlay}/>
           <FlatList data={this.state.data} renderItem={({item}) =>(
-            <TouchableOpacity onPress={() => console.log('item')}>
+            <TouchableOpacity onPress={()=>this.openOverlay(item.id)}>
               <List.Item style={styles.list}
                 titleStyle={{color: item.type == 0 ? 'green' :  item.type == 1 ? 'red' : 'blue'}}
                 title={item.name + '  ' + item.nominal}

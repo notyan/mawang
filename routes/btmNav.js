@@ -9,7 +9,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Ios from 'react-native-vector-icons/Ionicons';
 
 
-import Set from '../screen/set'         
+import Planning from '../screen/planning'         
 import Stat from '../screen/stat'
 import Trans from '../screen/trans'
 import Sum from '../screen/sum'
@@ -51,7 +51,7 @@ export default function btmNav() {
         <Tab.Screen name="Transaksi" component={Trans}/>
         <Tab.Screen name="Stats" component={Stat} />
         <Tab.Screen name="Summary" component={Sum} />
-        <Tab.Screen name="Planning" component={Set} />
+        <Tab.Screen name="Planning" component={Planning} />
       </Tab.Navigator>
     </NavigationContainer>
   );
