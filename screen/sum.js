@@ -98,7 +98,6 @@ class Sum extends Component {
           for(var i in jumlah){
             this.setState({ expenseTotal: percent})
             deskripsi[i].value = jumlah[i]
-            console.log('hehe')
           }
         }
         else{
@@ -166,14 +165,12 @@ class Sum extends Component {
           </View>
           <View style={styles.box}> 
               <DataTable style={styles.tabel}>
-                  <ScrollView>
                     <FlatList data={deskripsi}  renderItem={({item}) =>(
                         <DataTable.Row style={styles.row}>
                           <DataTable.Cell style={styles.cell}>{item.key}</DataTable.Cell>
                           <DataTable.Cell style={styles.cell} numeric>{item.value} Rupiah</DataTable.Cell>
                         </DataTable.Row>
                     )}/>
-                  </ScrollView>
                 </DataTable>
           </View>
         </View>

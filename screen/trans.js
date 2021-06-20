@@ -8,12 +8,11 @@ import * as SQLite from 'expo-sqlite';
 import Kepala from '../shared/kepala'
 import { global } from '../styles/global'
 import AddModal from  './addModal'
-import { TouchableHighlightBase } from 'react-native';
 import DelTrans from './delTrans';
 
 const db = SQLite.openDatabase('db.db')
 var identifier;
-
+var form;
 
 class  Trans extends Component {
   _isMounted = false;
@@ -28,7 +27,10 @@ class  Trans extends Component {
     this.fetchData()
     this.componentDidMount()
   }
-
+  openModal =(form) =>{
+    this.setState({modal: true})
+    form = form;
+  }
   closeModal = () => {
     this.componentDidMount()
     this.setState({modal: false})
@@ -49,9 +51,10 @@ class  Trans extends Component {
     this.setState({modal: false})
     db.transaction(tx =>{
       tx.executeSql('CREATE TABLE if not exists trans (id text PRIMARY KEY not null,  type text,  nominal text, name text, note text, category text, date text)')
+      tx.executeSql('CREATE TABLE if not exists plan (id text PRIMARY KEY not null,  judul text,  nominalAwal text, target text, deskripsi text)')
       //tx.executeSql('Drop TABLE trans ')
+      //tx.executeSql('Drop TABLE plan ')
     })
-    //this.fetchData()
     var query = "SELECT * FROM trans";
     var params = [];
     if(this._isMounted){
@@ -80,8 +83,7 @@ class  Trans extends Component {
       <View style={styles.container}>
         <Kepala/>
         <View style={global.container}>
-          <AddModal modal={this.state.modal} fetchData={this.fetchData} closeModal={this.closeModal} />
-          
+          <AddModal modal={this.state.modal} form={form} fetchData={this.fetchData} closeModal={this.closeModal} />
           {/*ADD TRANSACTION*/}
           <DelTrans data={this.state.data} identifier={identifier} overlay={this.state.overlay} closeOverlay={this.closeOverlay}/>
           <FlatList data={this.state.data} renderItem={({item}) =>(
@@ -95,7 +97,7 @@ class  Trans extends Component {
           )}/>
           
         </View>
-            <FAB style={styles.fab} title="Add +" color="#FAD02C" placement="right" onPress={()=>this.setState({modal: true})}/>
+            <FAB style={styles.fab} title="Add +" color="#FAD02C" placement="right" onPress={()=>this.openModal(0)}/>
       </View>
       
       

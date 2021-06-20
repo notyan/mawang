@@ -4,23 +4,18 @@ import { StyleSheet, Text, View, Modal, TouchableWithoutFeedback, Keyboard, Pick
 import { Formik } from 'formik'
 import * as yup from 'yup'
 
-import AddTrans from './addTrans'
+import AddPlan from './addPlan'
 import { MaterialIcons } from '@expo/vector-icons'
 
-class  AddModal extends Component {
+class  PlanModal extends Component {
     constructor () {
         super()
         this.state = {
             selectedIndex: 0,
           }
-        this.componentDidMount()
-        this.fetchData()
     }
-    componentDidMount(){
-
-    }
-    fetchData = () => {
-        this.componentDidMount()
+    tambahData = (input) =>{
+        this.props.addData(input)
     }
     render(){
         return(
@@ -33,7 +28,7 @@ class  AddModal extends Component {
                 {/**Content */}
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.modal}>
-                        <AddTrans modal={this.props.modal} fetchData={this.props.fetchData} closeModal={this.props.closeModal} />
+                        <AddPlan tambahData={this.state.tambahData} fetchData={this.props.fetchData} data={this.props.data}  modal={this.props.modal} closeModal={this.props.closeModal} />
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>
@@ -72,4 +67,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default AddModal
+export default PlanModal

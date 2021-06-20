@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import { Text,StyleSheet, View} from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import { Header} from 'react-native-elements'
+import { DataTable } from 'react-native-paper';
 
 const db = SQLite.openDatabase('db.db')
 
@@ -61,9 +62,19 @@ class Kepala extends Component{
     render(){
         return(
             <View >
-                <Header  leftComponent={{ text: 'Indah Paksi Larasati', style: { color: '#fff', width:600 } }} rightComponent={{ icon: 'settings', color: '#fff' }} />
-                <Text style={styles.kepalakau}>{'\t'} Income {"\t\t\t\t\t\t\t\t\t"} Expense {"\t\t\t\t\t\t\t\t\t"} Transfer </Text>
-                <Text>{'\t'} {this.state.stats[0]} {"\t\t\t\t\t\t\t\t\t\t\t"} {this.state.stats[1]} {"\t\t\t\t\t\t\t\t\t\t\t"} {this.state.stats[2]}</Text>
+                <Header style={styles.kepala} leftComponent={{ text: 'Indah Paksi Larasati', style: { color: '#fff', width:600 } }} rightComponent={{ icon: 'settings', color: '#fff' }} />
+                <DataTable>
+                  <DataTable.Header style={styles.row}>
+                    <DataTable.Title >Income</DataTable.Title>
+                    <DataTable.Title style={styles.tengah}>Expense</DataTable.Title>
+                    <DataTable.Title numeric>Transfer</DataTable.Title>
+                  </DataTable.Header>
+                  <DataTable.Row style={styles.row}>
+                    <DataTable.Cell >{this.state.stats[0]}</DataTable.Cell>
+                    <DataTable.Cell style={styles.tengah}>{this.state.stats[1]}</DataTable.Cell>
+                    <DataTable.Cell numeric>{this.state.stats[2]}</DataTable.Cell>
+                  </DataTable.Row>
+                </DataTable>
             </View>
         )
     }
@@ -74,8 +85,15 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff'
     },
-    kepalakau: {
-      backgroundColor: '#b17179',
+    tengah: {
+      justifyContent: 'center',
+      marginHorizontal: 20,
+    },
+    row:{
+      height: 30,
+      borderBottomWidth: 0,
+      marginTop: -15,
+      paddingVertical:0,
     }
 });
 

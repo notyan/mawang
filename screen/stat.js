@@ -105,10 +105,10 @@ class Stat extends Component {
         <View style={styles.content}>
           <ButtonGroup style={styles.tombol} onPress={this.updateIndex} selectedIndex={time} buttons={buttons} containerStyle={{height: 40}}/>
           <View style={styles.box}> 
-            <BarChart fromZero={true} data={data} width={lebar} height={220}  yAxisLabel={'$'} chartConfig={chartConfig}/>
+            <BarChart fromZero={true} data={data} width={lebar} height={220}  chartConfig={chartConfig}/>
           </View>
           <View style={styles.box}> 
-            <BarChart fromZero={true} data={data} width={lebar} height={220}  yAxisLabel={'s'} chartConfig={chartConfig}/>
+            <BarChart fromZero={true} data={data} width={lebar} height={220}  chartConfig={chartConfig}/>
           </View>
         </View>
       </View>
@@ -124,20 +124,21 @@ class Stat extends Component {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
   },
   content:{
+    marginTop: 8,
     flexDirection: "column",
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   box:{
-    paddingVertical: 10,
+    paddingVertical: 8,
   },
   tombol:{
+    height: 20,
     backgroundColor: '#b17179'
   }
 });

@@ -77,18 +77,17 @@ class AddTrans extends Component{
       flexDirection: "column"
     }]}>
                 <ButtonGroup style={styles.box} onPress={this.updateIndex} selectedIndex={type} buttons={buttons} containerStyle={{height: 40,alignSelf: 'stretch'}}/>
-               <View style={styles.box}>
-                <TextInput style={styles.input} placeholder="Nama transaksi" onChangeText={value => this.setState({ name: value })}/>
-                <TextInput style={styles.input}  placeholder="Nominal" keyboardType="numeric" onChangeText={value => this.setState({ nominal: value })}/>
-                <TextInput style={styles.input} column={5} placeholder="Notes" multilne  onChangeText={value => this.setState({ note: value })}/>
-                <DropDownPicker items={kategori} defaultValue={this.state.category} containerStyle={{height: 50}} style={{backgroundColor: '#fafafa',marginBottom:5}} itemStyle={{justifyContent: 'flex-start'}}  onChangeItem={item => this.setState({category: item.value})}/>
-                <Button style={{marginTop:120,marginBottom:5}} title="Submit" onPress={()=>{
-                    this.addReview(this.state)
-                    //console.log(this.state.data)
-                    this.props.closeModal({modal: false})
-                    this.props.fetchData()
-                    
-                }}/>
+                <View style={styles.box}>
+                  <TextInput style={styles.input} placeholder="Nama transaksi" onChangeText={value => this.setState({ name: value })}/>
+                  <TextInput style={styles.input}  placeholder="Nominal" keyboardType="numeric" onChangeText={value => this.setState({ nominal: value })}/>
+                  <TextInput style={styles.input} column={5} placeholder="Notes" multilne  onChangeText={value => this.setState({ note: value })}/>
+                  <DropDownPicker items={kategori} defaultValue={this.state.category} containerStyle={{height: 50}} style={{backgroundColor: '#fafafa',marginBottom:5}} itemStyle={{justifyContent: 'flex-start'}}  onChangeItem={item => this.setState({category: item.value})}/>
+                  <Button style={{marginTop:120,marginBottom:5}} title="Submit" onPress={()=>{
+                      this.addReview(this.state)
+                      this.props.closeModal({modal: false})
+                      this.props.fetchData()
+                      
+                  }}/>
                 </View>
             </View> 
         )
