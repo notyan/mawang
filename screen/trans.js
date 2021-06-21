@@ -96,7 +96,7 @@ class  Trans extends Component {
           )}/>
           
         </View>
-            <FAB style={styles.fab} title="Add +" color="#FAD02C" placement="right" onPress={()=>this.openModal(0)}/>
+            <FAB style={styles.fab} title="+" color="#5C33F6" placement="right" onPress={()=>this.openModal(0)}/>
       </View>
       
       
@@ -116,10 +116,16 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    borderRadius: 8,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#5C33F6',
+    marginRight: 28,
+    marginBottom: 24
   },
   titleItem: {
     color: 'white',
+    fontSize: 16
   },
   list:{
     backgroundColor: 'white'
