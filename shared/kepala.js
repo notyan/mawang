@@ -62,7 +62,7 @@ class Kepala extends Component{
     render(){
         return(
             <View >
-                <Header containerStyle={styles.kepala} leftComponent={{ text: 'Indah Paksi Larasati', style: { color: '#fff', width:800, marginTop: 18, fontWeight: 'bold'} }} rightComponent={{ icon: 'settings', color: '#fff' }} />
+                <Header containerStyle={styles.kepala} leftComponent={{ text: 'Indah Paksi Larasati', style: { color: '#fff', width:800, marginTop: 8, paddingLeft: 8, fontWeight: 'bold', fontSize: 22} }} rightComponent={{ icon: 'settings', color: '#fff', marginTop: 8, paddingRight: 8 }} />
                 <DataTable>
                   <DataTable.Header style={styles.row}>
                     <DataTable.Title >Income</DataTable.Title>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     },
     kepala:{
       backgroundColor: '#5C33F6',
-      paddingBottom: 14
+      paddingBottom: 16
     }
   });
 
