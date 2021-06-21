@@ -8,13 +8,18 @@ import * as SQLite from 'expo-sqlite';
 
 import { MaterialIcons } from '@expo/vector-icons'
 
+const reviewSchema = yup.object({
+  nama: yup.string().required().min(3),
+  nominal: yup.number().required().positive(1),
+  note: yup.string().required().min(3)
+})
 const db = SQLite.openDatabase('db.db')
 class AddTrans extends Component{
     constructor () {
         super()
         this.state = {
             id: '',
-            type: '2',
+            type: 1.0,
             nominal: '',
             name: '',
             note: '',
@@ -73,27 +78,41 @@ class AddTrans extends Component{
         ]
         return (
            <View style={[styles.container, {
-              // Try setting `flexDirection` to `"row"`.
               flexDirection: "column"
             }]}>
                 <ButtonGroup style={styles.box} onPress={this.updateIndex} selectedIndex={type} buttons={buttons} containerStyle={{height: 40,alignSelf: 'stretch'}}/>
                 <View style={styles.box}>
-                  <TextInput style={styles.input} placeholder="Nama transaksi" onChangeText={value => this.setState({ name: value })}/>
-                  <TextInput style={styles.input}  placeholder="Nominal" keyboardType="numeric" onChangeText={value => this.setState({ nominal: value })}/>
-                  <TextInput style={styles.input} column={5} placeholder="Notes" multilne  onChangeText={value => this.setState({ note: value })}/>
-                  <DropDownPicker items={kategori} defaultValue={this.state.category} containerStyle={{height: 50}} style={{backgroundColor: '#fafafa',marginBottom:5}} itemStyle={{justifyContent: 'flex-start'}}  onChangeItem={item => this.setState({category: item.value})}/>
-                  <Button style={{marginTop:120,marginBottom:5, backgroundColor: '#5C33F6'}} title="Submit" onPress={()=>{
-                      this.addReview(this.state)
-                      this.props.closeModal({modal: false})
-                      this.props.fetchData()
-                      
-                  }}/>
+                  <Formik 
+                    initialValues={{nama: '', nominal:'', note:''}} 
+                    validationSchema={reviewSchema}
+                    onSubmit={(values, actions) => {
+                        console.log(values)
+                        actions.resetForm();
+                        this.addReview(values)
+                        this.props.fetchData()
+                    }}>
+                      {(props)=>(
+                        <View>
+                          <TextInput style={styles.input} placeholder="Nama transaksi" value={props.values.nama} onBlur={props.handleBlur('nama')} onChangeText={props.handleChange('nama')}/>
+                            <Text >{props.touched.nama && props.errors.nama}</Text>
+                          <TextInput style={styles.input}  placeholder="Nominal" keyboardType="numeric" value={props.values.nominal} onBlur={props.handleBlur('nominal')} onChangeText={props.handleChange('nominal')}/>
+                            <Text >{props.touched.nominal && props.errors.nominal}</Text>
+                          <TextInput style={styles.input} column={5} placeholder="Notes" multilne value={props.values.note} onBlur={props.handleBlur('note')} onChangeText={props.handleChange('note')}/>
+                            <Text >{props.touched.note && props.errors.note}</Text>
+                          <DropDownPicker items={kategori} defaultValue={this.state.category} containerStyle={{height: 50}} style={{backgroundColor: '#fafafa',marginBottom:5}} itemStyle={{justifyContent: 'flex-start'}}  onChangeItem={item => this.setState({category: item.value})}/>
+                          <Button style={{marginTop:120,marginBottom:5, backgroundColor: '#5C33F6'}} title="Submit" onPress={()=>{
+                              props.handleSubmit()
+                              this.props.closeModal({modal: false})
+                                
+                          }}/>
+                        </View>
+                          
+                      )}
+                  </Formik>
                 </View>
             </View> 
         )
       }
-
-   
 }
 
 const styles = StyleSheet.create({

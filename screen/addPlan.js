@@ -9,6 +9,12 @@ import * as SQLite from 'expo-sqlite';
 import { MaterialIcons } from '@expo/vector-icons'
 import PlanModal from  './planModal'
 
+const reviewSchema = yup.object({
+  judul: yup.string().required().min(3),
+  start: yup.number().required().positive(1),
+  target: yup.number().required().positive(1),
+  deskripsi: yup.string().required().min(3)
+})
 const db = SQLite.openDatabase('db.db')
 class AddPlan extends Component{
     constructor () {
@@ -16,7 +22,7 @@ class AddPlan extends Component{
         this.state = {
             id: '',
             judul:'',
-            nominalAwal: '',
+            start: '',
             target: '',
             deskripsi: '',
         }
@@ -24,9 +30,8 @@ class AddPlan extends Component{
       addPlan(data){
         let today = new Date()
         data.id = today.toISOString().slice(0,19).replace(/[-:T]/g,'')
-        console.log(data)
         let query = "INSERT INTO plan (id, judul, nominalAwal, target, deskripsi) VALUES (?,?,?,?,?)"
-        let params = [data.id, data.judul, data.nominalAwal, data.target, data.deskripsi]
+        let params = [data.id, data.judul, data.start, data.target, data.deskripsi]
         db.transaction((tx)=> {
           tx.executeSql(query,params,(tx,results) =>{
             console.log('Data tersimpan')
@@ -43,21 +48,27 @@ class AddPlan extends Component{
             }]}>
                 <View style={styles.box}>
                   <Formik 
-                    initialValues={{nominal: '', kategori: ''}} 
+                    initialValues={{judul: '', start:'', target:'', deskripsi:''}} 
+                    validationSchema={reviewSchema}
                     onSubmit={(values, actions) => {
                         console.log(values)
                         actions.resetForm();
+                        this.addPlan(values)
+                        this.props.fetchData()
                     }}>
                       {(props)=>(
                         <View>
-                          <TextInput style={styles.input} placeholder="Nama Kegiatan" onChangeText={value => this.setState({ judul: value })}/>
-                            <TextInput style={styles.input}  placeholder="Uang Terkumpul" keyboardType="numeric" onChangeText={value => this.setState({ nominalAwal: value })}/>
-                            <TextInput style={styles.input}  placeholder="Target Uang" keyboardType="numeric" onChangeText={value => this.setState({ target: value })}/>
-                            <TextInput style={styles.input} column={5} placeholder="Deskripsi" multilne  onChangeText={value => this.setState({ deskripsi: value })}/>
+                          <TextInput style={styles.input} placeholder="Nama Kegiatan" value={props.values.judul} onBlur={props.handleBlur('judul')} onChangeText={props.handleChange('judul')}/>
+                          <Text >{props.touched.judul && props.errors.judul}</Text>
+                            <TextInput style={styles.input}  placeholder="Uang Terkumpul" value={props.values.start} onBlur={props.handleBlur('start')} keyboardType="numeric" onChangeText={props.handleChange('start')}/>
+                              <Text >{props.touched.start && props.errors.start}</Text>
+                            <TextInput style={styles.input}  placeholder="Target Uang" value={props.values.finish} onBlur={props.handleBlur('target')} keyboardType="numeric" onChangeText={props.handleChange('target')}/>
+                              <Text >{props.touched.finish && props.errors.finish}</Text>
+                            <TextInput style={styles.input} column={5} placeholder="Deskripsi" value={props.values.deskripsi} onBlur={props.handleBlur('deskripsi')} multilne  onChangeText={props.handleChange('deskripsi')}/>
+                              <Text >{props.touched.deskripsi && props.errors.deskripsi}</Text>
                             <Button style={{marginTop:120,marginBottom:5}} title="Submit" onPress={()=>{
-                                this.addPlan(this.state)
+                                props.handleSubmit()
                                 this.props.closeModal()
-                                this.props.fetchData()
                           }}/>     
                         </View>
                         

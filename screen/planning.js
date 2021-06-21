@@ -61,7 +61,6 @@ class Planning extends Component {
   openOverlay = (id) =>{
     this.setState({overlay: true})
     selectedData = id
-    console.log(id)
   }
   closeModal= () =>{
     this.setState({modal: false})

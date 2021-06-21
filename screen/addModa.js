@@ -17,12 +17,12 @@ export default function AddModal({ modal, setModal }) {
         <View style={styles.header}>
           <MaterialIcons name="arrow-back-ios" size={24} onPress={() => setModal(false)}/>
         </View>
- 
+
         {/**Content */}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.modal}>
           <Formik selectedIndex={selectedIndex}
-                initialValues={{type:selectedIndex, nominal: '', kategori: ''}} 
+                initialValues={{type:selectedIndex, nominal: '', kategori: ''}}
                 onSubmit={(values, actions) => {
                     console.log(values)
                     actions.resetForm();
@@ -35,7 +35,7 @@ export default function AddModal({ modal, setModal }) {
                             <Text style={global.errorMsg}>{props.touched.nominal && props.errors.nominal}</Text>
                         <TextInput style={styles.input} placeholder="Kategori" onChangeText={props.handleChange('kategori')} value={props.values.kategori} onBlur={props.handleBlur('kategori')}/>
                             <Text style={global.errorMsg}>{props.touched.kategori && props.errors.kategori}</Text>
-                        
+
                         <Button onPress={props.handleSubmit}> Submit </Button>
                     </View>
                 )}
