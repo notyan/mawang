@@ -21,7 +21,6 @@ class  SeeDetails extends Component{
                     <Card>
                         <Card.Title title={this.props.selectedData.judul} subtitle={this.props.selectedData.target}  />
                         <Card.Content>
-                            <Paragraph>{this.props.selectedData.id}</Paragraph>
                             <Paragraph>{this.props.selectedData.deskripsi}</Paragraph>
                             <ProgressBar progress={Number(this.props.selectedData.nominalAwal)/Number(this.props.selectedData.target)}  />
                         </Card.Content>

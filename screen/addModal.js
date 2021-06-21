@@ -24,7 +24,7 @@ class  AddModal extends Component {
     }
     render(){
         return(
-            <Modal visible={this.props.modal} animationType='slide'>
+            <Modal  transparent={true} visible={this.props.modal} animationType='slide'>
                 {/**Header */}
                 <View style={styles.header}>
                     <MaterialIcons name="arrow-back-ios" size={24} onPress={() => this.props.closeModal()}/>
@@ -44,11 +44,12 @@ class  AddModal extends Component {
 
 const styles = StyleSheet.create({
     header:{
-      height: 40,
-      backgroundColor: '#ddd',
-      paddingTop: 8,
-      paddingBottom: 8,
-      paddingLeft: 10,
+        marginTop:40,
+        height: 40,
+        backgroundColor: '#ddd',
+        paddingTop: 8,
+        paddingBottom: 8,
+        paddingLeft: 10,
     },
     btnContainer:{
         backgroundColor: '#aaa',
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
     modal:{
       flex:1,
       padding:20,
+      backgroundColor: 'white',
     },
     btn: {
         width: "40%",

@@ -85,6 +85,9 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff'
     },
+    kepala:{
+      backgroundColor: 'black'
+    },
     tengah: {
       justifyContent: 'center',
       marginHorizontal: 20,
