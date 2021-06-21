@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component} from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
-import { Provider, List, FAB } from 'react-native-paper';
-import { Header } from 'react-native-elements'
+import { StyleSheet, TouchableOpacity, View, FlatList } from 'react-native';
+import { List, FAB } from 'react-native-paper';
 import * as SQLite from 'expo-sqlite';
 
 import Kepala from '../shared/kepala'
@@ -90,8 +89,9 @@ class  Trans extends Component {
               <List.Item style={styles.list}
                 titleStyle={{color: item.type == 0 ? 'green' :  item.type == 1 ? 'red' : 'blue', textAlign: 'left'}}
                 title={item.name}
-                  description={item.type == 0 ? "Rp" + item.nominal + "\n" + item.date + ' income'    :  item.type == 1 ? "Rp" + item.nominal + "\n" + item.date + ' expense'   : "Rp" + item.nominal + "\n" + item.date + ' transfer'}
-                  left={props => <List.Icon   {...props}  icon={item.type == 0 ? 'cash-plus' :  item.type == 1 ? 'cash-minus' : 'cash-refund' }style={styles.icon} />}/>
+                descriptionStyle  ={styles.descStyle}
+                description={item.type == 0 ? "Rp" + item.nominal + "\n" + item.date + ' income'    :  item.type == 1 ? "Rp" + item.nominal + "\n" + item.date + ' expense'   : "Rp" + item.nominal + "\n" + item.date + ' transfer'}
+                left={props => <List.Icon   {...props}  icon={item.type == 0 ? 'cash-plus' :  item.type == 1 ? 'cash-minus' : 'cash-refund' }style={styles.icon} />}/>
             </TouchableOpacity>
           )}/>
           
@@ -115,12 +115,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   icon:{ 
+    padding:0,
     marginHorizontal:0,
   },
   content:{
     marginVertical: 8,
     marginHorizontal: 16,
-    backgroundColor: 'green',
   },
   fab: {
     position: 'absolute',
@@ -136,7 +136,13 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   list:{
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderBottomWidth: 0.3,
+    padding: 0,
+    margin: 0,
+  },
+  descStyle: {
+    color : '#171717',
   }
 });
 
