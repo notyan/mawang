@@ -97,8 +97,11 @@ const styles = StyleSheet.create({
       borderBottomWidth: 0,
       marginTop: -15,
       paddingVertical:0,
+    },
+    kepala:{
+      backgroundColor: '#005A8D'
     }
-});
+  });
 
 
 export default Kepala
