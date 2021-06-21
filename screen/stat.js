@@ -105,10 +105,10 @@ class Stat extends Component {
         <View style={styles.content}>
           <ButtonGroup style={styles.tombol} onPress={this.updateIndex} selectedIndex={time} buttons={buttons} containerStyle={{height: 40}}/>
           <View style={styles.box}> 
-            <BarChart fromZero={true} data={data} width={lebar} height={220}  chartConfig={chartConfig}/>
+            <BarChart fromZero={true} data={data} width={lebar} height={210}  chartConfig={chartConfig}/>
           </View>
           <View style={styles.box}> 
-            <BarChart fromZero={true} data={data} width={lebar} height={220}  chartConfig={chartConfig}/>
+            <BarChart fromZero={true} data={data} width={lebar} height={210}  chartConfig={chartConfig}/>
           </View>
         </View>
       </View>
