@@ -96,7 +96,7 @@ class  Trans extends Component {
           )}/>
           
         </View>
-            <FAB style={styles.fab} title="+" color="#5C33F6" placement="right" onPress={()=>this.openModal(0)}/>
+            <FAB style={styles.fab} title="+" placement="right" onPress={()=>this.openModal(0)}/>
       </View>
       
       

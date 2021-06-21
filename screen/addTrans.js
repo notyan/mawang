@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginBottom:32,
     borderRadius:6,
-    borderColor: '#5C33F6',
+    borderColor: '#4444',
     fontSize: 18
   },
 box:{
