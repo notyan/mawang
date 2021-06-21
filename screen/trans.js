@@ -81,17 +81,17 @@ class  Trans extends Component {
     return (
       <View style={styles.container}>
         <Kepala/>
-        <View style={global.container}>
+        <View style={global.container, styles.content}>
           <AddModal modal={this.state.modal} form={form} fetchData={this.fetchData} closeModal={this.closeModal} />
           {/*ADD TRANSACTION*/}
           <DelTrans data={this.state.data} identifier={identifier} overlay={this.state.overlay} closeOverlay={this.closeOverlay}/>
-          <FlatList data={this.state.data} renderItem={({item}) =>(
+          <FlatList style={styles.flatlist} data={this.state.data} renderItem={({item}) =>(
             <TouchableOpacity onPress={()=>this.openOverlay(item.id)}>
               <List.Item style={styles.list}
-                titleStyle={{color: item.type == 0 ? 'green' :  item.type == 1 ? 'red' : 'blue', textAlign: 'justify'}}
-                title={item.name  +'  '+ item.nominal}
-                  description={item.type == 0 ? item.date + ' income' +   "\n" + item.note  :  item.type == 1 ? item.date + ' expense' +   "\n" + item.note  : item.date + ' transfer' +   "\n" + item.note}
-                  left={props => <List.Icon {...props} icon={item.type == 0 ? 'cash-plus' :  item.type == 1 ? 'cash-minus' : 'cash-refund'} />}/>
+                titleStyle={{color: item.type == 0 ? 'green' :  item.type == 1 ? 'red' : 'blue', textAlign: 'left'}}
+                title={item.name}
+                  description={item.type == 0 ? "Rp" + item.nominal + "\n" + item.date + ' income'    :  item.type == 1 ? "Rp" + item.nominal + "\n" + item.date + ' expense'   : "Rp" + item.nominal + "\n" + item.date + ' transfer'}
+                  left={props => <List.Icon   {...props}  icon={item.type == 0 ? 'cash-plus' :  item.type == 1 ? 'cash-minus' : 'cash-refund' }style={styles.icon} />}/>
             </TouchableOpacity>
           )}/>
           
@@ -113,6 +113,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  icon:{ 
+    marginHorizontal:0,
+  },
+  content:{
+    marginVertical: 8,
+    marginHorizontal: 16,
+    backgroundColor: 'green',
   },
   fab: {
     position: 'absolute',
