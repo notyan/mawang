@@ -73,9 +73,9 @@ class AddTrans extends Component{
         ]
         return (
            <View style={[styles.container, {
-      // Try setting `flexDirection` to `"row"`.
-      flexDirection: "column"
-    }]}>
+              // Try setting `flexDirection` to `"row"`.
+              flexDirection: "column"
+            }]}>
                 <ButtonGroup style={styles.box} onPress={this.updateIndex} selectedIndex={type} buttons={buttons} containerStyle={{height: 40,alignSelf: 'stretch'}}/>
                 <View style={styles.box}>
                   <TextInput style={styles.input} placeholder="Nama transaksi" onChangeText={value => this.setState({ name: value })}/>
@@ -97,7 +97,6 @@ class AddTrans extends Component{
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     flexDirection:"column"
