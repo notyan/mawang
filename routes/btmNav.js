@@ -44,7 +44,7 @@ export default function btmNav() {
             },
             })}
             tabBarOptions={{
-              activeTintColor: 'tomato',
+              activeTintColor: '#5C33F6',
               inactiveTintColor: 'gray',
             }}
         >

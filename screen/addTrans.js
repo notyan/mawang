@@ -82,7 +82,7 @@ class AddTrans extends Component{
                   <TextInput style={styles.input}  placeholder="Nominal" keyboardType="numeric" onChangeText={value => this.setState({ nominal: value })}/>
                   <TextInput style={styles.input} column={5} placeholder="Notes" multilne  onChangeText={value => this.setState({ note: value })}/>
                   <DropDownPicker items={kategori} defaultValue={this.state.category} containerStyle={{height: 50}} style={{backgroundColor: '#fafafa',marginBottom:5}} itemStyle={{justifyContent: 'flex-start'}}  onChangeItem={item => this.setState({category: item.value})}/>
-                  <Button style={{marginTop:120,marginBottom:5}} title="Submit" onPress={()=>{
+                  <Button style={{marginTop:120,marginBottom:5, backgroundColor: '#5C33F6'}} title="Submit" onPress={()=>{
                       this.addReview(this.state)
                       this.props.closeModal({modal: false})
                       this.props.fetchData()
@@ -102,27 +102,27 @@ const styles = StyleSheet.create({
     flexDirection:"column"
   },
   tombol:{
-    backgroundColor: '#12ff',
+    backgroundColor: '#5C33F6',
     justifyContent: 'center'
   },
   input:{
+    height: 48,
     borderWidth: 1,
     paddingVertical:5,
     paddingHorizontal:5,
     alignSelf: 'stretch',
-    marginBottom:5,
+    marginBottom:32,
     borderRadius:6,
-    borderColor: '#4444',
+    borderColor: '#5C33F6',
+    fontSize: 18
   },
 box:{
  marginTop:50,
   borderWidth: 1,
-  padding: 15,
+  padding: 20,
   borderRadius:10,
-  borderColor: 'powderblue',
+  borderColor: '#5C33F6',
   justifyContent: 'center',
-
-
 }
 });
 

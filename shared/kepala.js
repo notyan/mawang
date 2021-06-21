@@ -62,12 +62,12 @@ class Kepala extends Component{
     render(){
         return(
             <View >
-                <Header containerStyle={styles.kepala} leftComponent={{ text: 'Indah Paksi Larasati', style: { color: '#fff', width:800, marginTop: 8, paddingLeft: 8, fontWeight: 'bold', fontSize: 22} }} rightComponent={{ icon: 'settings', color: '#fff', marginTop: 8, paddingRight: 8 }} />
+                <Header containerStyle={styles.kepala} leftComponent={{ text: 'Indah Paksi Larasati', style: { color: '#fff', width:800, fontWeight: 'bold', fontSize: 22} }} rightComponent={{ icon: 'settings', color: '#fff'}} />
                 <DataTable>
                   <DataTable.Header style={styles.row}>
-                    <DataTable.Title >Income</DataTable.Title>
+                    <DataTable.Title style={styles.kiri}>Income</DataTable.Title>
                     <DataTable.Title style={styles.tengah}>Expense</DataTable.Title>
-                    <DataTable.Title numeric>Transfer</DataTable.Title>
+                    <DataTable.Title style={styles.kanan} numeric>Transfer</DataTable.Title>
                   </DataTable.Header>
                   <DataTable.Row style={styles.row}>
                     <DataTable.Cell >{this.state.stats[0]}</DataTable.Cell>
@@ -88,19 +88,27 @@ const styles = StyleSheet.create({
     kepala:{
       backgroundColor: 'black'
     },
+    kiri: {
+      color: '#9ACD32'
+    },
     tengah: {
       justifyContent: 'center',
       marginHorizontal: 20,
     },
+    kanan: {
+      color: '#9ACD32'
+    },
     row:{
       height: 30,
+      // backgroundColor: '#ddd',
       borderBottomWidth: 0,
-      marginTop: -15,
-      paddingVertical:0,
+      paddingHorizontal: 20
     },
     kepala:{
       backgroundColor: '#5C33F6',
-      paddingBottom: 16
+      paddingBottom: 16,
+      paddingHorizontal: 20,
+      paddingTop: 16
     }
   });
 
