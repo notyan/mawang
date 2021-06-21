@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component} from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
-import { Provider, List } from 'react-native-paper';
-import { Header, FAB } from 'react-native-elements'
+import { Provider, List, FAB } from 'react-native-paper';
+import { Header } from 'react-native-elements'
 import * as SQLite from 'expo-sqlite';
 
 import Kepala from '../shared/kepala'
@@ -96,7 +96,7 @@ class  Trans extends Component {
           )}/>
           
         </View>
-            <FAB style={styles.fab} title="+" color="transparent" placement="right" onPress={()=>this.openModal(0)}/>
+            <FAB style={styles.fab} large icon="plus"  onPress={()=>this.openModal(0)}/>
       </View>
       
       
@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    width: 60,
-    height: 60,
+    right: 0,
+    bottom:0,
     borderRadius: 30,
     backgroundColor: '#5C33F6',
     marginRight: 28,
