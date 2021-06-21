@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
-import { ListItem, FAB } from 'react-native-elements'
+import { ListItem } from 'react-native-elements'
+import { FAB } from 'react-native-paper'
 import * as SQLite from 'expo-sqlite';
 
 import Card from '../shared/card'
@@ -86,7 +87,7 @@ class Planning extends Component {
           )}/>
           
         </View>
-          <FAB style={styles.fab} title="Add +" color="#FAD02C" placement="right" onPress={()=>this.openModal()}/>
+          <FAB style={styles.fab} large icon="plus"  onPress={()=>this.openModal()}/>
       </View>
     );
   }
@@ -106,7 +107,12 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    borderRadius: 8,
+    right: 0,
+    bottom:0,
+    borderRadius: 30,
+    backgroundColor: '#5C33F6',
+    marginRight: 28,
+    marginBottom: 24
   },
   content:{
     flexDirection: "column",
