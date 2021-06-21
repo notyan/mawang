@@ -44,7 +44,7 @@ class  AddModal extends Component {
 
 const styles = StyleSheet.create({
     header:{
-        marginTop:40,
+        marginTop:60,
         height: 40,
         backgroundColor: '#ddd',
         paddingTop: 8,

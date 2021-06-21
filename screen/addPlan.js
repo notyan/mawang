@@ -42,15 +42,29 @@ class AddPlan extends Component{
             flexDirection: "column"
             }]}>
                 <View style={styles.box}>
-                    <TextInput style={styles.input} placeholder="Nama Kegiatan" onChangeText={value => this.setState({ judul: value })}/>
-                    <TextInput style={styles.input}  placeholder="Uang Terkumpul" keyboardType="numeric" onChangeText={value => this.setState({ nominalAwal: value })}/>
-                    <TextInput style={styles.input}  placeholder="Target Uang" keyboardType="numeric" onChangeText={value => this.setState({ target: value })}/>
-                    <TextInput style={styles.input} column={5} placeholder="Deskripsi" multilne  onChangeText={value => this.setState({ deskripsi: value })}/>
-                    <Button style={{marginTop:120,marginBottom:5}} title="Submit" onPress={()=>{
-                        this.addPlan(this.state)
-                        this.props.closeModal()
-                        this.props.fetchData()
-                    }}/>
+                  <Formik 
+                    initialValues={{nominal: '', kategori: ''}} 
+                    onSubmit={(values, actions) => {
+                        console.log(values)
+                        actions.resetForm();
+                    }}>
+                      {(props)=>(
+                        <View>
+                          <TextInput style={styles.input} placeholder="Nama Kegiatan" onChangeText={value => this.setState({ judul: value })}/>
+                            <TextInput style={styles.input}  placeholder="Uang Terkumpul" keyboardType="numeric" onChangeText={value => this.setState({ nominalAwal: value })}/>
+                            <TextInput style={styles.input}  placeholder="Target Uang" keyboardType="numeric" onChangeText={value => this.setState({ target: value })}/>
+                            <TextInput style={styles.input} column={5} placeholder="Deskripsi" multilne  onChangeText={value => this.setState({ deskripsi: value })}/>
+                            <Button style={{marginTop:120,marginBottom:5}} title="Submit" onPress={()=>{
+                                this.addPlan(this.state)
+                                this.props.closeModal()
+                                this.props.fetchData()
+                          }}/>     
+                        </View>
+                        
+                      )}
+                           
+                  </Formik>
+                    
                 </View>
             </View> 
         )
