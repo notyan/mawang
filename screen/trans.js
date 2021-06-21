@@ -9,6 +9,7 @@ import Kepala from '../shared/kepala'
 import { global } from '../styles/global'
 import AddModal from  './addModal'
 import DelTrans from './delTrans';
+import SeeDetails from './seeDetails';
 
 const db = SQLite.openDatabase('db.db')
 var identifier;
@@ -77,7 +78,6 @@ class  Trans extends Component {
     this.componentDidMount()
   }
 
-  
   render(){
     return (
       <View style={styles.container}>
