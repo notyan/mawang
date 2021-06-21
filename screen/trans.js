@@ -9,7 +9,6 @@ import Kepala from '../shared/kepala'
 import { global } from '../styles/global'
 import AddModal from  './addModal'
 import DelTrans from './delTrans';
-import SeeDetails from './seeDetails';
 
 const db = SQLite.openDatabase('db.db')
 var identifier;
@@ -89,7 +88,7 @@ class  Trans extends Component {
           <FlatList data={this.state.data} renderItem={({item}) =>(
             <TouchableOpacity onPress={()=>this.openOverlay(item.id)}>
               <List.Item style={styles.list}
-                titleStyle={{color: item.type == 0 ? 'green' :  item.type == 1 ? 'red' : 'blue'}}
+                titleStyle={{color: item.type == 0 ? 'green' :  item.type == 1 ? 'red' : 'blue', textAlign: 'justify'}}
                 title={item.name  +'  '+ item.nominal}
                   description={item.type == 0 ? item.date + ' income' +   "\n" + item.note  :  item.type == 1 ? item.date + ' expense' +   "\n" + item.note  : item.date + ' transfer' +   "\n" + item.note}
                   left={props => <List.Icon {...props} icon={item.type == 0 ? 'cash-plus' :  item.type == 1 ? 'cash-minus' : 'cash-refund'} />}/>
